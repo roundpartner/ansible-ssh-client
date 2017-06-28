@@ -1,2 +1,71 @@
 ---
-# tasks file for ansible-ssh-client
+- name: set permissions for ssh folder
+  file:
+    path: .ssh
+    mode: 0700
+    owner: "{{ owner }}"
+    group: "{{ group }}"
+    state: directory
+  tags:
+    - ssh
+
+- name: set permissions for authorised keys
+  file:
+    path: .ssh/authorized_keys
+    mode: 0640
+    owner: "{{ owner }}"
+    group: "{{ group }}"
+  tags:
+    - ssh
+
+- name: stat public key
+  stat:
+    path: .ssh/id_rsa.pub
+  register: file
+  tags:
+    - ssh
+
+- name: set permission to public key
+  file:
+    path: .ssh/id_rsa.pub
+    mode: 0644
+    owner: "{{ owner }}"
+    group: "{{ group }}"
+    state: file
+  when: file.stat.exists == true
+  tags:
+    - ssh
+
+- name: stat private key
+  stat:
+    path: .ssh/id_rsa
+  register: file
+  tags:
+    - ssh
+
+- name: report that public key is missing
+  debug:
+    msg: "Private key was not found"
+  when: file.stat.exists == false
+  tags:
+    - ssh
+
+- name: set permission to private key
+  file:
+    path: .ssh/id_rsa
+    mode: 0600
+    owner: "{{ owner }}"
+    group: "{{ group }}"
+    state: file
+  when: file.stat.exists == true
+  tags:
+    - ssh
+
+- name: insert authorised keys
+  lineinfile:
+    line: '{{ item }}'
+    dest: .ssh/authorized_keys
+  with_items: "{{ authorised_keys }}"
+  tags:
+    - ssh
+...

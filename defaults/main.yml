@@ -1,2 +1,5 @@
 ---
-# defaults file for ansible-ssh-client
+owner: root
+group: root
+authorised_keys: []
+...

@@ -3,7 +3,7 @@
 Ansible SSH Client
 =========
 
-A brief description of the role goes here.
+Configures ssh client
 
 Requirements
 ------------
@@ -27,7 +27,7 @@ Including an example of how to use your role (for instance, with variables passe
 
     - hosts: servers
       roles:
-         - { role: thomaslorentsen.ansible-ssh-client, owner: tom, group: tom }
+         - { role: thomaslorentsen.ssh-client, owner: tom, group: tom }
 
 License
 -------

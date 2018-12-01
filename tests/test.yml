@@ -3,4 +3,5 @@
   remote_user: root
   roles:
     - {role: ansible-ssh-client, become: yes, ssh_path: "ssh"}
+    - {role: ansible-ssh-client, ssh_path: "ssh"}
 ...

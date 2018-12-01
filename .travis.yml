@@ -26,6 +26,9 @@ install:
   ## will not work for private repos
   #- ansible-galaxy install -r requirements.yml
 
+  - ls -l ../
+  - whoami
+
 script:
   # Basic role syntax check
   - ansible-playbook tests/test.yml -i tests/inventory --syntax-check --list-tasks

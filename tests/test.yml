@@ -2,5 +2,5 @@
 - hosts: localhost
   remote_user: root
   roles:
-    - ansible-ssh-client
+    - {role: ansible-ssh-client, ssh_path: "~/ssh"}
 ...

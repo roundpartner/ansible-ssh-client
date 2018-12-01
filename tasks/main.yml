@@ -1,7 +1,7 @@
 ---
 - name: set permissions for ssh folder
   file:
-    path: ~/.ssh
+    path: "{{ ssh_path }}"
     mode: 0700
     owner: "{{ owner }}"
     group: "{{ group }}"
@@ -11,7 +11,7 @@
 
 - name: set permissions for authorised keys
   file:
-    path: ~/.ssh/authorized_keys
+    path: "{{ ssh_path }}/authorized_keys"
     mode: 0640
     owner: "{{ owner }}"
     group: "{{ group }}"
@@ -21,14 +21,14 @@
 
 - name: stat public key
   stat:
-    path: ~/.ssh/id_rsa.pub
+    path: "{{ ssh_path }}/id_rsa.pub"
   register: file
   tags:
     - ssh
 
 - name: set permission to public key
   file:
-    path: ~/.ssh/id_rsa.pub
+    path: "{{ ssh_path }}/id_rsa.pub"
     mode: 0644
     owner: "{{ owner }}"
     group: "{{ group }}"
@@ -39,7 +39,7 @@
 
 - name: stat private key
   stat:
-    path: ~/.ssh/id_rsa
+    path: "{{ ssh_path }}/id_rsa"
   register: file
   tags:
     - ssh
@@ -53,7 +53,7 @@
 
 - name: set permission to private key
   file:
-    path: ~/.ssh/id_rsa
+    path: "{{ ssh_path }}/id_rsa"
     mode: 0600
     owner: "{{ owner }}"
     group: "{{ group }}"
@@ -65,7 +65,7 @@
 - name: insert authorised keys
   lineinfile:
     line: '{{ item }}'
-    dest: ~/.ssh/authorized_keys
+    dest: "{{ ssh_path }}/authorized_keys"
   with_items: "{{ authorised_keys }}"
   tags:
     - ssh

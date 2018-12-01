@@ -2,4 +2,5 @@
 owner: root
 group: root
 authorised_keys: []
+ssh_path: ~/.ssh
 ...
